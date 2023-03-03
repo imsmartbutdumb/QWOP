@@ -1,21 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>QWOP</title>
-  <script type="text/javascript" src="howler.js"></script>
-  <script type="text/javascript" src="swfobject.js"></script>
-  <script type="text/javascript" src="2QWOP.min.js"></script>
-  <style type="text/css">
-    /* Add any custom styles here */
-  </style>
+	<meta charset="UTF-8">
+	<title>2QWOP Game</title>
 </head>
 <body>
-  <div id="wrapper">
-    <div class="post-body">
-      <div id="gameContent">
-      </div>
-    </div>
-  </div>
+	<h1>2QWOP Game</h1>
+	<canvas id="canvas" width="600" height="400"></canvas>
+	<script>
+		function loadScript(url) {
+			return new Promise((resolve, reject) => {
+				const script = document.createElement('script');
+				script.src = url;
+				script.onload = resolve;
+				script.onerror = reject;
+				document.head.appendChild(script);
+			});
+		}
+
+		function setup_default_window() {
+			return new Promise((resolve) => {
+				window = {document: {body: {appendChild: resolve}}};
+			});
+		}
+
+		function on_snow_ready() {
+			loadScript('./2QWOP.min.js')
+				.then(() => {
+					const qwop = new window['2QWOP']();
+					qwop.start();
+				})
+				.catch((error) => {
+					console.error('Error loading 2QWOP:', error);
+				});
+		}
+
+		function on_event(event) {
+			if (event.type === 'keydown' && event.keyCode === 32) {
+				window['2QWOP'].pause();
+			} else if (event.type === 'keyup' && event.keyCode === 32) {
+				window['2QWOP'].resume();
+			}
+		}
+
+		function init() {
+			setup_default_window()
+				.then(() => {
+					window.addEventListener('keydown', on_event);
+					window.addEventListener('keyup', on_event);
+					on_snow_ready();
+				})
+				.catch((error) => {
+					console.error('Error setting up default window:', error);
+				});
+		}
+
+		init();
+	</script>
 </body>
 </html>
