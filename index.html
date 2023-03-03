@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>QWOP</title>
-	<meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <title>QWOP</title>
+  <script type="text/javascript" src="howler.js"></script>
+  <script type="text/javascript" src="swfobject.js"></script>
+  <script type="text/javascript" src="2QWOP.min.js"></script>
+  <style type="text/css">
+    /* Add any custom styles here */
+  </style>
 </head>
 <body>
-	<div id="gameContent"></div>
-	<script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/swfobject@2.3.20210511/swfobject.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/2qwop@1.0.3/dist/2qwop.min.js"></script>
-	<script>
-		window.addEventListener("load", function() {
-			var gamejs = document.createElement("script");
-			gamejs.src = "https://cdn.jsdelivr.net/npm/2qwop@1.0.3/dist/2qwop.js";
-			gamejs.onload = function() {
-				var game = new QWOPGame("gameContent");
-				game.start();
-			};
-			document.head.appendChild(gamejs);
-		});
-	</script>
+  <div id="wrapper">
+    <div class="post-body">
+      <div id="gameContent">
+      </div>
+    </div>
+  </div>
 </body>
 </html>
